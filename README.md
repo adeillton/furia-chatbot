@@ -1,15 +1,15 @@
 
-# 🎮 FURI# 🎮 FURIA Chatbot
+# 🎮 FURIA Chatbot
 
 <div align="center">
-  <img src="static/img/logo.png" alt="Logo FURIA" width="200">
+  <img src="static/img/read.png" alt="Logo FURIA" width="200">
 </div>
 
-Chatbot interativo sobre times e jogos da FURIA Esports, desenvolvido com Python e IA generativa.
+Chatbot interativo sobre os times e jogos da FURIA Esports, desenvolvido com Python, Flask e IA generativa.
 
 ## ✨ Demonstração
 <div align="center">
-  <img src="static/img/demo.png" alt="Tela do Chatbot" width="600">
+  <img src="static/img/Demo.png" alt="Tela do Chatbot" width="600">
   <p><em>Interface do chatbot em funcionamento</em></p>
 </div>
 
@@ -23,7 +23,15 @@ Chatbot interativo sobre times e jogos da FURIA Esports, desenvolvido com Python
 ## 🚀 Como Executar
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/furia-chatbot.git
+git clone https://github.com/adeillton/furia-chatbot.git
+
+# Acesse a pasta do projeto
+cd furia-chatbot
+
+# Crie um ambiente virtual (opcional)
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 
 # Instale as dependências
 pip install -r requirements.txt
@@ -31,9 +39,9 @@ pip install -r requirements.txt
 # Execute
 python app.py
 ```
-Acesse: `http://localhost:5000` ou `http://localhost:5050`
+Acesse: `http://localhost:5050`
 
-## 💡 Exemplos  
+## 💡 Exemplos de Perguntas para o bot
 - "Elenco do CS2?"  
 - "Quando é o próximo jogo?"  
 - "Onde assistir?"  
