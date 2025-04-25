@@ -36,8 +36,8 @@ venv\Scripts\activate     # Windows
 # Instale as dependências
 pip install -r requirements.txt
 
-# Execute
-python app.py
+# Execute ("python3 app.py" caso não utilize ambiente virtual )
+python app.py 
 ```
 Acesse: `http://localhost:5050`
 
@@ -46,5 +46,5 @@ Acesse: `http://localhost:5050`
 - "Quando é o próximo jogo?"  
 - "Onde assistir?"  
 
-Desenvolvido por Adeilton Barros | 2024  
+Desenvolvido por Adeilton Barros | 2025  
 
