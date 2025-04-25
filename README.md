@@ -2,7 +2,7 @@
 # 🎮 FURIA Chatbot
 
 <div align="center">
-  <img src="static/img/read.png" alt="Logo FURIA" width="200">
+  <img src="https://furiagg.fbitsstatic.net/sf/img/logo-furia.svg?theme=main&amp;v=202503171541" alt="Logo FURIA" width="200">
 </div>
 
 Chatbot interativo sobre os times e jogos da FURIA Esports, desenvolvido com Python, Flask e IA generativa.
