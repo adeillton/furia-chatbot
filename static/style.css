@@ -1,0 +1,220 @@
+/* ===== GERAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff; /* Fundo branco (Fúria) */
+    color: #333; /* Texto escuro para contraste */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ===== LOGO & CABEÇALHO ===== */
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.furia-logo {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ===== CONTAINER PRINCIPAL (CARD DO CHAT) ===== */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #1e1e1e; /* Card escuro */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    width: 100%;
+    max-width: 420px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+header h1 {
+    font-size: 28px;
+    color: #e67e22; /* Laranja Fúria */
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 16px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+/* ===== ÁREA DO CHAT ===== */
+.chat-container {
+    overflow-y: auto;
+    max-height: 300px;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-right: 8px; /* Espaço para a scrollbar */
+}
+
+/* Mensagens */
+.bot-message,
+.user-message {
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 8px 0;
+    max-width: 80%;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bot-message {
+    background-color: #e67e22; /* Laranja Fúria */
+    color: white;
+    text-align: left;
+    margin-right: auto;
+}
+
+.user-message {
+    background-color: #2c3e50; /* Azul escuro */
+    color: white;
+    text-align: right;
+    margin-left: auto;
+}
+
+/* Indicador de "digitando" */
+.typing {
+    background-color: #e67e22;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 8px 0;
+    opacity: 0.8;
+    text-align: left;
+}
+
+.typing span {
+    display: inline-block;
+    animation: bounce 1.5s infinite ease-in-out;
+    margin: 0 1px;
+}
+
+.typing span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Barra de scroll */
+.chat-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+    background: #e67e22;
+    border-radius: 10px;
+}
+
+/* ===== FORMULÁRIO ===== */
+#chat-form {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+#user-input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+}
+
+#user-input:focus {
+    outline: none;
+    border-color: #e67e22;
+    box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.2);
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #e67e22;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background-color: #d35400;
+    transform: translateY(-1px);
+}
+
+/* ===== MENSAGENS DE ERRO ===== */
+.error-message {
+    background-color: #e74c3c !important;
+    text-align: center;
+    font-weight: bold;
+    margin: 8px auto !important;
+}
+
+/* ===== LOGO FLUTUANTE ===== */
+.floating-logo {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    width: 60px;
+    height: auto;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.3s;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.floating-logo:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 500px) {
+    .main-container {
+        width: 95%;
+        padding: 20px 15px;
+    }
+
+    header h1 {
+        font-size: 22px;
+    }
+
+    .floating-logo {
+        width: 50px;
+        right: 15px;
+    }
+}

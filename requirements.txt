@@ -1,0 +1,8 @@
+Flask==3.1.0
+transformers==4.40.0
+torch==2.1.0 --extra-index-url https://download.pytorch.org/whl/nightly/cpu
+torchvision==0.16.0
+accelerate==0.29.0  
+sentencepiece==0.2.0  
+Jinja2==3.1.6  
+numpy==1.26.0

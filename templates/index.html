@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat FURIA</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="logo-container">
+    <img src="https://furiagg.fbitsstatic.net/sf/img/logo-furia.svg?theme=main&amp;v=202503171541" 
+         alt="Logo da Furia" 
+         class="furia-logo"/>
+  </div>
+
+  <div class="main-container">
+    <header>
+      <h1>Chat com a FURIA</h1>
+      <p>Converse com nosso bot e saiba tudo sobre o time!</p>
+    </header>
+
+    <div class="chat-container" id="chat-box">
+      <!-- Mensagens serão inseridas aqui via JavaScript -->
+      <div class="bot-message">
+        Olá! Sou o assistente da FURIA. Pergunte-me sobre jogos, jogadores ou notícias! 🎮
+      </div>
+    </div>
+
+    <form id="chat-form">
+      <input 
+        type="text" 
+        id="user-input" 
+        placeholder="Digite sua mensagem..." 
+        required 
+        autocomplete="off"
+      />
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <footer>Desenvolvido por Adeilton para FURIA</footer>
+
+  <img 
+    src="/static/img/logo.svg" 
+    alt="Logo da Furia" 
+    class="floating-logo" 
+    id="floating-logo" 
+    style="display: none;"
+  />
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
