@@ -12,22 +12,20 @@ warnings.filterwarnings("ignore")
 
 # Dados atualizados da FURIA CS2
 DADOS_CS2 = {
-    "elenco": ["FalleN (IGL)", "KSCERATO", "yuurih", "molodoy", "YEKINDAR"],  # Atualize com jogadores atuais
-    "prox_jogo": "PGL Astana 2025 – data a confirmar",  # Atualizar com a data real quando disponível
+    "elenco": ["FalleN (IGL)", "KSCERATO", "yuurih", "molodoy", "YEKINDAR", "skullz", "chelo"],
+    "prox_jogo": "PGL Astana 2025 – 10/05",
     "titulos": [
         "IEM Dallas 2022",
         "ESL Pro League S15",
-        "PGL Major Copenhagen 2024"  # Atualizar com mais títulos se houver
+        "PGL Major Copenhagen 2024"
     ],
-    "stream": "https://twitch.tv/furiagg",  # Link para a transmissão da FURIA
-    "contato": "https://wa.me/5511993404466"  # Link para contato pelo WhatsApp
+    "stream": "https://twitch.tv/furiagg",
+    "contato": "https://wa.me/5511993404466"
 }
-
 
 app = Flask(__name__)
 
 # Carrega o modelo TinyLlama
-
 def load_model():
     try:
         print("⏳ Carregando modelo IA...")
@@ -85,14 +83,31 @@ def chat():
         return jsonify({"reply": random.choice(cheers)})
 
     if "countdown" in user_message or "contagem" in user_message:
-        # Calcula dias para o próximo jogo
-        data_str = DADOS_CS2['prox_jogo'].split(" - ")[1].split(" vs")[0]  # ex: "05/08"
-        day, month = map(int, data_str.split("/"))
-        hoje = datetime.date.today()
-        ano = hoje.year
-        jogo = datetime.date(ano, month, day)
-        delta = (jogo - hoje).days
-        return jsonify({"reply": f"⏳ Faltam {delta} dias para o próximo CS2!"})
+        try:
+            if "data a confirmar" in DADOS_CS2['prox_jogo'].lower():
+                return jsonify({"reply": "📅 A data do próximo jogo da FURIA ainda não foi confirmada!"})
+
+            data_str = DADOS_CS2['prox_jogo'].split("–")[1].strip()
+            day, month = map(int, data_str.split("/"))
+            hoje = datetime.date.today()
+            ano = hoje.year
+
+            # Se já passou este mês e dia, considera o próximo ano
+            if (month < hoje.month) or (month == hoje.month and day < hoje.day):
+                ano += 1
+
+            jogo = datetime.date(ano, month, day)
+            delta = (jogo - hoje).days
+
+            if delta > 0:
+                return jsonify({"reply": f"⏳ Faltam {delta} dias para o próximo CS2!"})
+            elif delta == 0:
+                return jsonify({"reply": "🏆 É hoje o jogo da FURIA!"})
+            else:
+                return jsonify({"reply": "⚡ O próximo jogo já aconteceu."})
+
+        except Exception as e:
+            return jsonify({"reply": "⚠️ Erro ao calcular o countdown. Data inválida ou formato incorreto."})
 
     # IA para demais perguntas
     if chatbot:
