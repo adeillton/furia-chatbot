@@ -3,29 +3,31 @@ import warnings
 from flask import Flask, request, jsonify, render_template
 from transformers import pipeline
 import torch
+import random
+import datetime
 
 # Configuração para Mac com M1/M2
 os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
 warnings.filterwarnings("ignore")
 
-# Dados da FURIA (julho/2024)
-DADOS_FURIA = {
-    "cs2": {
-        "elenco": ["FalleN (IGL)", "KSCERATO", "yuurih", "chelo", "arT"],
-        "prox_jogo": "IEM Dallas 2024 - 05/08 vs Vitality",
-        "titulos": ["IEM Dallas 2022", "ESL Pro League S15"],
-        "stream": "twitch.tv/furiagg"
-    },
-    "valorant": {
-        "elenco": ["dgzin", "qck", "Mazino", "frz", "Khalil"],
-        "prox_jogo": "VCT Americas - 12/08 vs LOUD",
-        "stream": "twitch.tv/furiagg"
-    }
+# Dados atualizados da FURIA CS2
+DADOS_CS2 = {
+    "elenco": ["FalleN (IGL)", "KSCERATO", "yuurih", "molodoy", "YEKINDAR"],  # Atualize com jogadores atuais
+    "prox_jogo": "PGL Astana 2025 – data a confirmar",  # Atualizar com a data real quando disponível
+    "titulos": [
+        "IEM Dallas 2022",
+        "ESL Pro League S15",
+        "PGL Major Copenhagen 2024"  # Atualizar com mais títulos se houver
+    ],
+    "stream": "https://twitch.tv/furiagg",  # Link para a transmissão da FURIA
+    "contato": "https://wa.me/5511993404466"  # Link para contato pelo WhatsApp
 }
+
 
 app = Flask(__name__)
 
-# Carrega o modelo
+# Carrega o modelo TinyLlama
+
 def load_model():
     try:
         print("⏳ Carregando modelo IA...")
@@ -38,7 +40,7 @@ def load_model():
         print("✅ IA carregada com sucesso!")
         return model
     except Exception as e:
-        print(f"❌ Erro ao carregar modelo: {str(e)}")
+        print(f"❌ Erro ao carregar modelo: {e}")
         return None
 
 chatbot = load_model()
@@ -49,59 +51,72 @@ def home():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    try:
-        user_message = request.json.get("message", "").lower().strip()
-        if not user_message:
-            return jsonify({"reply": "🧠 Pergunta algo sobre a FURIA! Pode ser sobre elenco, jogos ou curiosidades."})
+    user_message = request.json.get("message", "").strip().lower()
+    if not user_message:
+        return jsonify({"reply": "🧠 Manda uma pergunta sobre CS2, torcedor!"})
 
-        # Respostas diretas (sem IA)
-        if "elenco" in user_message:
-            if "cs2" in user_message:
-                return jsonify({"reply": f"👥 Elenco CS2: {', '.join(DADOS_FURIA['cs2']['elenco'])}"})
-            elif "valorant" in user_message:
-                return jsonify({"reply": f"💥 Elenco Valorant: {', '.join(DADOS_FURIA['valorant']['elenco'])}"})
-            return jsonify({"reply": "📌 Especifique o jogo: 'elenco cs2' ou 'elenco valorant'."})
+    # Boas-vindas
+    if user_message in ["oi", "olá", "e aí", "fala aí", "bom dia", "boa tarde"]:
+        return jsonify({"reply": "🎧 E aí, fã de CS2! Pergunte sobre elenco, próximos jogos ou títulos da FURIA."})
 
-        elif "próximo jogo" in user_message or "proximo jogo" in user_message:
-            if "cs2" in user_message:
-                return jsonify({"reply": f"📅 {DADOS_FURIA['cs2']['prox_jogo']}\n🎥 {DADOS_FURIA['cs2']['stream']}"})
-            elif "valorant" in user_message:
-                return jsonify({"reply": f"📅 {DADOS_FURIA['valorant']['prox_jogo']}\n🎥 {DADOS_FURIA['valorant']['stream']}"})
-            return jsonify({"reply": "📌 Especifique: 'próximo jogo cs2' ou 'próximo jogo valorant'."})
+    # Respostas fixas CS2
+    if "elenco" in user_message:
+        return jsonify({"reply": f"👥 Nosso lineup de CS2: {', '.join(DADOS_CS2['elenco'])}"})
 
-        # Resposta via IA com vibe fan-clube
-        if chatbot:
-            prompt = f"""
-Você é o FURIA Bot, o assistente oficial da torcida da FURIA Esports. Sua missão é responder com empolgação, criatividade e paixão pelo time. Seja curto, direto e com muito entusiasmo!
+    if "próximo jogo" in user_message or "proximo jogo" in user_message:
+        return jsonify({"reply": f"📅 Próximo CS2: {DADOS_CS2['prox_jogo']} 🎥 {DADOS_CS2['stream']}"})
+
+    if "título" in user_message or "titulos" in user_message:
+        return jsonify({"reply": f"🏆 Títulos CS2: {', '.join(DADOS_CS2['titulos'])}"})
+
+    # Comandos extras
+    if "stream" in user_message or "ao vivo" in user_message:
+        return jsonify({"reply": f"📺 Assista ao vivo: {DADOS_CS2['stream']}"})
+
+    if "contato" in user_message or "whatsapp" in user_message:
+        return jsonify({"reply": f"🤖 Fale com a FURIA: {DADOS_CS2['contato']}"})
+
+    if "cheer" in user_message or "comemorar" in user_message:
+        cheers = [
+            "🔥 Vai FURIA, mostra o que é raça! 🔥",
+            "🐆 Ruge, torcedor, a FURIA é nossa paixão! 🐆",
+            "🎮 CS2 só com a FURIA — vamo que vamo! 🎮"
+        ]
+        return jsonify({"reply": random.choice(cheers)})
+
+    if "countdown" in user_message or "contagem" in user_message:
+        # Calcula dias para o próximo jogo
+        data_str = DADOS_CS2['prox_jogo'].split(" - ")[1].split(" vs")[0]  # ex: "05/08"
+        day, month = map(int, data_str.split("/"))
+        hoje = datetime.date.today()
+        ano = hoje.year
+        jogo = datetime.date(ano, month, day)
+        delta = (jogo - hoje).days
+        return jsonify({"reply": f"⏳ Faltam {delta} dias para o próximo CS2!"})
+
+    # IA para demais perguntas
+    if chatbot:
+        prompt = f"""
+Você é o FURIA Bot, assistente oficial e torcedor fanático de CS2 da FURIA Esports.
+Responda empolgado, com emojis e bordões, mas seja claro e sucinto.
 
 Usuário: {user_message}
 FURIA Bot:"""
+        gerado = chatbot(
+            prompt,
+            max_new_tokens=100,
+            temperature=0.8,
+            top_p=0.9,
+            do_sample=True,
+            num_return_sequences=1
+        )[0]["generated_text"]
+        if "FURIA Bot:" in gerado:
+            resposta = gerado.split("FURIA Bot:")[-1].strip().split("\n")[0]
+        else:
+            resposta = gerado.strip().split("\n")[0]
+        return jsonify({"reply": resposta or "🔥 Vamos com tudo, FURIA CS2!"})
 
-            resposta = chatbot(
-                prompt,
-                max_new_tokens=100,
-                temperature=0.9,
-                do_sample=True,
-                top_p=0.95,
-                num_return_sequences=1
-            )[0]["generated_text"]
-
-            # Extrair a parte gerada após "FURIA Bot:"
-            if "FURIA Bot:" in resposta:
-                resposta_limpa = resposta.split("FURIA Bot:")[-1].strip().split("\n")[0]
-            else:
-                resposta_limpa = resposta.strip()
-
-            if resposta_limpa:
-                return jsonify({"reply": resposta_limpa})
-            else:
-                return jsonify({"reply": "🔥 Bora torcer pela FURIA! Pergunta algo mais pra mim."})
-
-        return jsonify({"reply": "⚠️ Estou sem acesso à IA agora. Tente algo sobre elenco ou próximos jogos!"})
-
-    except Exception as e:
-        print(f"Erro: {str(e)}")
-        return jsonify({"reply": "🚨 Deu ruim no servidor! Tenta de novo, guerreiro!"})
+    return jsonify({"reply": "⚠️ Estou sem IA agora. Pergunte sobre CS2!"})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5050, debug=True)

@@ -10,30 +10,38 @@
 <body>
 
   <div class="logo-container">
-    <img src="https://furiagg.fbitsstatic.net/sf/img/logo-furia.svg?theme=main&amp;v=202503171541" 
-         alt="Logo da Furia" 
+    <img src="https://furiagg.fbitsstatic.net/sf/img/logo-furia.svg?theme=main&amp;v=202503171541"
+         alt="Logo da Furia"
          class="furia-logo"/>
   </div>
 
   <div class="main-container">
     <header>
-      <h1>Chat com a FURIA</h1>
-      <p>Converse com nosso bot e saiba tudo sobre o time!</p>
+      <h1>Chat com a FURIA CS2</h1>
+      <p>Converse com nosso bot e acompanhe o time de CS2!</p>
     </header>
 
+    <div class="suggestions">
+      <button onclick="autoSend('Elenco')">Elenco</button>
+      <button onclick="autoSend('Próximo jogo')">Próximo jogo</button>
+      <button onclick="autoSend('Stream ao vivo')">Stream</button>
+      <button onclick="autoSend('Contato WhatsApp')">Contato</button>
+      <button onclick="autoSend('Cheer')">Comemorar</button>
+      <button onclick="autoSend('Countdown')">Countdown</button>
+    </div>
+
     <div class="chat-container" id="chat-box">
-      <!-- Mensagens serão inseridas aqui via JavaScript -->
       <div class="bot-message">
-        Olá! Sou o assistente da FURIA. Pergunte-me sobre jogos, jogadores ou notícias! 🎮
+        Olá! Sou o assistente da FURIA CS2. Pergunte-me sobre elenco, próximos jogos ou títulos! 🎮
       </div>
     </div>
 
     <form id="chat-form">
-      <input 
-        type="text" 
-        id="user-input" 
-        placeholder="Digite sua mensagem..." 
-        required 
+      <input
+        type="text"
+        id="user-input"
+        placeholder="Digite sua mensagem..."
+        required
         autocomplete="off"
       />
       <button type="submit">Enviar</button>
@@ -42,11 +50,11 @@
 
   <footer>Desenvolvido por Adeilton para FURIA</footer>
 
-  <img 
-    src="/static/img/logo.svg" 
-    alt="Logo da Furia" 
-    class="floating-logo" 
-    id="floating-logo" 
+  <img
+    src="/static/img/logo.svg"
+    alt="Logo da Furia"
+    class="floating-logo"
+    id="floating-logo"
     style="display: none;"
   />
 

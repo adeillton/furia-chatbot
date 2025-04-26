@@ -218,3 +218,24 @@ button:hover {
         right: 15px;
     }
 }
+
+/* ===== SUGGESTIONS ===== */
+.suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .suggestions button {
+    background: #e67e22;
+    border: none;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+  .suggestions button:hover {
+    background: #d35400;
+  }
