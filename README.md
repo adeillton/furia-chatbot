@@ -36,7 +36,7 @@ venv\Scripts\activate     # Windows
 # Instale as dependências
 pip install -r requirements.txt
 
-# Execute ("python3 app.py" caso não utilize ambiente virtual )
+# Execute ("python3 app.py" caso não utilize ambiente virtual)
 python app.py 
 ```
 Acesse: `http://localhost:5050`
@@ -45,6 +45,8 @@ Acesse: `http://localhost:5050`
 - "Elenco do CS2?"  
 - "Quando é o próximo jogo?"  
 - "Onde assistir?"  
+
+   Também é possível utilizar perguntas sugeridas pelo chatbot para respostas rápidas!
 
 Desenvolvido por Adeilton Barros | 2025  
 
